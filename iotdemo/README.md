@@ -24,7 +24,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.request", 
 )
 #For Django v1.7 only! Use something else for v1.8. 
-</pre></code><br/>
+</pre></code>
 <br/>
 (2) Edit the project's "urls.py" and change: <br/>
 <br/><pre lang="python"><code>
@@ -42,7 +42,7 @@ $ python manage.py makemigrations iotdemo <br/>
 
 ---
 
-To start the server in background with public-facing website: <br/>
+To start the server in background with public-facing website: 
 <br/><pre lang="bash"><code>
 $ sudo nohup  python manage.py runserver 0.0.0.0:80 & 
 </pre></code><br/>
