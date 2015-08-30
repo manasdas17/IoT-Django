@@ -9,6 +9,7 @@ $ cd nameofprojectwebsite
 $ python manage.py migrate 
 $ python manage.py createsuperuser 
 
+
 1. Edit the project's "settings.py" and add: 
 
 INSTALLED_APPS = (
@@ -42,6 +43,5 @@ $ python manage.py makemigrations iotdemo
 To start the server in background with public-facing website: 
 
 $ sudo nohup  python manage.py runserver 0.0.0.0:80 & 
-
 
 
