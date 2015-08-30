@@ -23,7 +23,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.media", 
 	"django.core.context_processors.request", 
 )
-#For Django v1.7 only! Use something else for v1.8. 
+''' For Django v1.7 only! Use something else for v1.8. '''
 </pre></code>
 <br/>
 (2) Edit the project's "urls.py" and change: <br/>
