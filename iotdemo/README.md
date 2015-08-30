@@ -2,7 +2,7 @@
 How to install this app into a new or existing Django project... 
 
 
-0. Create a new Django project if necessary: <br/>
+(0) Create a new Django project if necessary: <br/>
 <br/>
 $ django-admin startproject nameofprojectwebsite <br/>
 $ cd nameofprojectwebsite <br/>
@@ -10,7 +10,7 @@ $ python manage.py migrate <br/>
 $ python manage.py createsuperuser <br/>
 
 <br/>
-1. Edit the project's "settings.py" and add: <br/>
+(1) Edit the project's "settings.py" and add: <br/>
 <br/>
 INSTALLED_APPS = (<br/>
 	''' Stuff that was already there... ''' <br/> 
@@ -26,7 +26,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (<br/>
 *For Django v1.7 only! Use something else for v1.8. <br/>
 
 <br/>
-2. Edit the project's "urls.py" and change: <br/>
+(2) Edit the project's "urls.py" and change: <br/>
 <br/>
 urlpatterns = patterns('',<br/>
 	''' Stuff that was already here... '''<br/>
@@ -35,7 +35,7 @@ urlpatterns = patterns('',<br/>
 ) <br/>
 
 <br/>
-3. Update the database with models: <br/>
+(3) Update the database with models: <br/>
 <br/>
 $ python manage.py makemigrations iotdemo <br/>
 
