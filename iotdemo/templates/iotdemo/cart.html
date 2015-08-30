@@ -1,0 +1,119 @@
+{% load staticfiles %}
+{% include 'iotdemo/header.html' %}
+
+  <p><h3>Your Cart</h3><br/></p>
+  <form action="{% url 'iotdemo:checkout' %}" method="post" class="form-inline" id="form">
+  {% csrf_token %}
+  
+  {% if our_cakes and request.session.customer %} 
+    {% for cake in our_cakes %}
+      <div class="row">
+	<div class="col-md-4">
+	  <h4>{{ forloop.counter }}. {{ cake.label }} cake</h4>
+	</div>
+	<div class="col-md-3">
+	  <div class="form-group"><div class="input-group">
+	    <span class="input-group-btn"><button class="btn btn-default" type="button" id="sub_{{ forloop.counter0 }}_{{ cake.id }}">-</button></span>
+	    <input type="text" class="form-control" id="qty_{{ cake.id }}" name="qty_{{ cake.id }}" value="{{ cake.number }}" readonly>
+	    <span class="input-group-btn"><button class="btn btn-default" type="button" id="add_{{ forloop.counter0 }}_{{ cake.id }}">+</button></span>
+	  </div></div>
+	</div>
+	<div class="col-md-3" style="text-align:right;">	  
+	  <h4>$<span id="price_{{ cake.id }}">{{ cake.price }}</span> each</h4><br/>
+	  <input type="hidden" name="income_{{ cake.id }}" id="income_{{ cake.id }}" value="{{ cake.income }}">
+	</div>
+      </div>
+    {% endfor %}
+    <br/><br/>
+    <div class="row">
+      <div class="col-md-3 col-md-offset-4">
+	<p><h3>Total: $<span id="total">0</span></h3></p>
+      </div>
+      <div class="col-md-3" style="text-align:right;">
+	<button type="button" class="btn btn-lg btn-success" id="checkout">Checkout</button>
+      </div>
+    </div>
+    
+    <script>
+      var count = {{ request.session.count }}; 
+      var cartstring = '{{ request.session.cart|safe }}'; 
+      var cart = JSON.parse(cartstring); 
+      
+      var prices = [];
+      var numbers = [];
+      var subtotals = [];
+      var total = 0; 
+      {% for cake in our_cakes %}
+	prices[{{ forloop.counter0 }}] = {{ cake.price }}; 
+	numbers[{{ forloop.counter0 }}] = {{ cake.number }}; 
+	subtotals[{{ forloop.counter0 }}] = {{ cake.income }}; 
+	$("#income_{{ cake.id }}").val({{ cake.income }}); 
+      {% endfor %}
+      $( document ).ready(function() 
+      {
+	$.each(subtotals, function(){ total += this; }); 
+	$("#total").html(total); 
+      });
+      
+      function updatenow(index, cake, addsub)
+      {
+	numbers[index] += addsub; 
+	if (numbers[index] < 0)
+	{
+	  numbers[index] = 0; 
+	  return; 
+	}
+	total += (addsub * prices[index]); 
+	subtotals[index] = prices[index] * numbers[index]; 	
+	$("#qty_"+cake).val(numbers[index]); 
+	$("#income_"+cake).val(subtotals[index]); 
+	$("#total").html(total); 
+	
+	if (cartstring.search(cake) > 0) 
+	{
+	  var qty = 0; 
+	  for (var prop in cart.items) 
+	    if (cart.items[prop][cake]) 
+	    {
+	      qty = parseInt(cart.items[prop][cake]); 
+	      cart.items.splice(prop, 1); 
+	    }
+	  var temp = {}; 
+	  temp[cake] = qty + addsub; 
+	  cart.items.push(temp); 
+	}	  
+	var updatedcart = JSON.stringify(cart); 
+	cartstring = updatedcart; 	  
+	
+	count += addsub; 
+	$("#cart").text("Cart ("+count+")"); 
+	$.get( "{% url 'iotdemo:addtocart' %}", { cart: cartstring, count: count } ); 
+      }
+      
+      $("[id^='add_']").click(function()
+      {
+	var index = this.id.split('_')[1]; 
+	var cake = this.id.split('_')[2]; 	
+	updatenow(index, cake, 1); 
+	return false; 
+      }); 
+      
+      $("[id^='sub_']").click(function()
+      {
+	var index = this.id.split('_')[1]; 
+	var cake = this.id.split('_')[2]; 
+	updatenow(index, cake, -1); 
+	return false; 
+      }); 
+      
+      $("#checkout").click(function()
+      {
+	$("#form").submit(); 
+      }); 
+    </script>
+  {% endif %}
+  
+  </form>
+  <p><br/><br/></p>
+
+{% include 'iotdemo/footer.html' %}

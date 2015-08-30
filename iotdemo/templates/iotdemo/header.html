@@ -1,0 +1,36 @@
+{% load staticfiles %}
+
+<html>
+  <head>
+    <title>IoT Demo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'iotdemo/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'iotdemo/style.css' %}" />
+    
+    <script src="{% static 'iotdemo/jquery.min.js' %}"></script>
+    <script src="{% static 'iotdemo/js/bootstrap.min.js' %}"></script>
+  </head>
+  
+  <body>  
+      <div class="container">
+	
+	<div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+          {% if request.session.customer %}
+            <li role="presentation"><a href="{% url 'iotdemo:cart' %}" id="cart">Cart ({{ request.session.count }})</a></li>
+            <li role="presentation"><a href="{% url 'iotdemo:login' %}">Sign Out</a></li>
+          {% else %}
+	    <li role="presentation"><a href="#" id="showmodal">Sign Up or Sign In</a></li>
+          {% endif %}
+          </ul>
+        </nav>
+        <h3 class="text-muted">Demo Cake Shop</h3>
+      </div>      
+      <p><br/></p>
+      
+      
+      

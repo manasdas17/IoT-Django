@@ -1,0 +1,79 @@
+{% load staticfiles %}
+{% include 'iotdemo/header.html' %}
+    
+      {% if request.session.success != '' %} 
+	<div class="alert alert-success">
+	  <a href="#" class="close" data-dismiss="alert" aria-label="close" id="close">&times;</a>
+	  <strong>Success!</strong> Thank you for your purchase!
+	</div>
+      {% endif %}
+      
+      <div class="row marketing"> 
+	{% if our_cakes %} 
+	    {% for cake in our_cakes %}
+		<div class="col-lg-6">
+		  <img src="{% static 'iotdemo/Cake.png' %}">
+		  <h4>{{ cake.label }} cake</h4>
+		  {% if request.session.customer %}
+		    {% if cake.quantity > 0 %}
+		      <strong><a href="#" id="cake_{{ cake.id }}">Add to Cart</a></strong><br/>
+		    {% else %}
+		      <strong>Can't Add to Cart</strong><br/>
+		    {% endif %}
+		  {% endif %}
+		  Price each: ${{ cake.price }}<br/>
+		  Available now: {{ cake.quantity }}
+		  <br/><br/><br/><br/>
+		</div>
+	    {% endfor %}
+	{% else %} 
+	    <p>Sorry, no cakes today!</p> 
+	{% endif %} 
+      </div>
+      
+      
+      <script>
+	var count = {{ request.session.count }}; 
+	var cartstring = '{{ request.session.cart|safe }}'; 
+	var cart = JSON.parse(cartstring); 
+	
+	$("[id^='cake_']").click(function()
+	{
+	  var cake = this.id.split('_')[1]; 	  
+	  if (cartstring.search(cake) > 0) 
+	  {
+	    var qty = 0; 
+	    for (var prop in cart.items) 
+	      if (cart.items[prop][cake]) 
+	      {
+	    	qty = parseInt(cart.items[prop][cake]); 
+	    	cart.items.splice(prop, 1); 
+	      }
+	    var temp = {}; 
+	    temp[cake] = qty+1; 
+	    cart.items.push(temp); 
+	  }
+	  else
+	  {	    
+	    var temp = {}; 
+	    temp[cake] = "1"; 
+	    cart.items.push(temp); 
+	  }	  
+	  var updatedcart = JSON.stringify(cart); 
+	  cartstring = updatedcart; 	  
+	  
+	  count++; 
+	  $("#cart").text("Cart ("+count+")"); 
+	  $.get( "{% url 'iotdemo:addtocart' %}", { cart: cartstring, count: count } ); 
+	  return false; 
+	}); 
+	
+	$("#close").click(function()
+	{
+	  $.get( "{% url 'iotdemo:addtocart' %}" ); 
+	}); 
+      </script>
+      
+{% include 'iotdemo/footer.html' %}
+
+
