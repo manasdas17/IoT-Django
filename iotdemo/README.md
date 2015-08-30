@@ -11,20 +11,20 @@ $ python manage.py createsuperuser <br/>
 
 <br/>
 (1) Edit the project's "settings.py" and add: <br/>
-<br/>
-INSTALLED_APPS = (<br/>
-	''' Stuff that was already there... ''' <br/> 
-	'iotdemo',<br/>
-)<br/>
-TEMPLATE_CONTEXT_PROCESSORS = (<br/>
-	"django.core.context_processors.auth", <br/>
-	"django.core.context_processors.debug", <br/>
-	"django.core.context_processors.i18n", <br/>
-	"django.core.context_processors.media", <br/>
-	"django.core.context_processors.request", <br/>
-)<br/>
-*For Django v1.7 only! Use something else for v1.8. <br/>
-
+<br/><pre lang="python"><code>
+INSTALLED_APPS = (
+	''' Stuff that was already there... '''  
+	'iotdemo',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+	"django.core.context_processors.auth", 
+	"django.core.context_processors.debug", 
+	"django.core.context_processors.i18n", 
+	"django.core.context_processors.media", 
+	"django.core.context_processors.request", 
+)
+#For Django v1.7 only! Use something else for v1.8. 
+</pre></code><br/>
 <br/>
 (2) Edit the project's "urls.py" and change: <br/>
 <br/>
@@ -38,7 +38,7 @@ urlpatterns = patterns('',<br/>
 (3) Update the database with models: <br/>
 <br/>
 $ python manage.py makemigrations iotdemo <br/>
-
+<br/>
 ---
 
 To start the server in background with public-facing website: <br/>
