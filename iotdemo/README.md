@@ -2,7 +2,7 @@
 How to install this app into a new or existing Django project... 
 
 
-(0) Create a new Django project if necessary: <br/>
+(0) Create a new Django project if necessary: 
 <br/><pre lang="bash"><code>
 $ django-admin startproject nameofprojectwebsite 
 $ cd nameofprojectwebsite 
@@ -36,12 +36,13 @@ urlpatterns = patterns('',
 </pre></code><br/>
 <br/>
 (3) Update the database with models: <br/>
-<br/>
+<br/><pre lang="bash"><code>
 $ python manage.py makemigrations iotdemo <br/>
-<br/>
+</pre></code><br/>
+
 ---
 
 To start the server in background with public-facing website: <br/>
-<br/>
-$ sudo nohup  python manage.py runserver 0.0.0.0:80 & <br/>
-
+<br/><pre lang="bash"><code>
+$ sudo nohup  python manage.py runserver 0.0.0.0:80 & 
+</pre></code><br/>
