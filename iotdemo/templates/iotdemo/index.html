@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% include 'iotdemo/header.html' %}
     
-      {% if request.session.success != '' %} 
+      {% if request.session.success == 'OK' %} 
 	<div class="alert alert-success">
 	  <a href="#" class="close" data-dismiss="alert" aria-label="close" id="close">&times;</a>
 	  <strong>Success!</strong> Thank you for your purchase!
