@@ -33,7 +33,7 @@ urlpatterns = patterns('',
 	url(r'^iotdemo/', include('iotdemo.urls', namespace="iotdemo")), 
 	url(r'^admin/', include(admin.site.urls)), 
 ) 
-</pre></code><br/>
+</pre></code>
 <br/>
 (3) Update the database with models: <br/>
 <br/><pre lang="bash"><code>
