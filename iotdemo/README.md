@@ -3,12 +3,12 @@ How to install this app into a new or existing Django project...
 
 
 (0) Create a new Django project if necessary: <br/>
-<br/>
-$ django-admin startproject nameofprojectwebsite <br/>
-$ cd nameofprojectwebsite <br/>
-$ python manage.py migrate <br/>
-$ python manage.py createsuperuser <br/>
-
+<br/><pre lang="bash"><code>
+$ django-admin startproject nameofprojectwebsite 
+$ cd nameofprojectwebsite 
+$ python manage.py migrate 
+$ python manage.py createsuperuser 
+</pre></code>
 <br/>
 (1) Edit the project's "settings.py" and add: <br/>
 <br/><pre lang="python"><code>
@@ -27,13 +27,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 </pre></code><br/>
 <br/>
 (2) Edit the project's "urls.py" and change: <br/>
-<br/>
-urlpatterns = patterns('',<br/>
-	''' Stuff that was already here... '''<br/>
-	url(r'^iotdemo/', include('iotdemo.urls', namespace="iotdemo")), <br/>
-	url(r'^admin/', include(admin.site.urls)), <br/>
-) <br/>
-
+<br/><pre lang="python"><code>
+urlpatterns = patterns('', 
+	''' Stuff that was already here... ''' 
+	url(r'^iotdemo/', include('iotdemo.urls', namespace="iotdemo")), 
+	url(r'^admin/', include(admin.site.urls)), 
+) 
+</pre></code><br/>
 <br/>
 (3) Update the database with models: <br/>
 <br/>
