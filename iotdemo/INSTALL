@@ -1,10 +1,25 @@
 
-How to install this app into a new or existing Django project
+How to install this app into a new or existing Django project... 
 
+
+0. Create a new Django project if necessary: 
+
+$ django-admin startproject nameofprojectwebsite 
+$ cd nameofprojectwebsite 
+$ python manage.py migrate 
+$ python manage.py createsuperuser 
 
 1. Edit the project's "settings.py" and add: 
 
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+INSTALLED_APPS = (
+    # Stuff that was already there... 
+    'iotdemo',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
     "django.core.context_processors.request",
 )
 # For Django v1.7 only! Use something else for v1.8. 
@@ -17,3 +32,16 @@ urlpatterns = patterns('',
   url(r'^iotdemo/', include('iotdemo.urls', namespace="iotdemo")),
   url(r'^admin/', include(admin.site.urls)),
 )
+
+
+3. Update the database with models: 
+
+$ python manage.py makemigrations iotdemo 
+
+
+To start the server in background with public-facing website: 
+
+$ sudo nohup  python manage.py runserver 0.0.0.0:80 & 
+
+
+
