@@ -1,1 +1,19 @@
- 
+
+How to install this app into a new or existing Django project
+
+
+1. Edit the project's "settings.py" and add: 
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request",
+)
+# For Django v1.7 only! Use something else for v1.8. 
+
+
+2. Edit the project's "urls.py" and change: 
+
+urlpatterns = patterns('',
+  # Stuff that was already here... 
+  url(r'^iotdemo/', include('iotdemo.urls', namespace="iotdemo")),
+  url(r'^admin/', include(admin.site.urls)),
+)
