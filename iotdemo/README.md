@@ -43,8 +43,8 @@ $ python manage.py makemigrations iotdemo <br/>
 ---
 
 To install AdminPlus for custom views in Admin site: <br/>
-Check out the guide at https://github.com/jsocol/django-adminplus
-<br/>
+<pre><code>Check out the guide at https://github.com/jsocol/django-adminplus</pre></code>
+<br/><br/>
 To start the server in background with public-facing website: 
 <br/><pre lang="bash"><code>
 $ sudo nohup  python manage.py runserver 0.0.0.0:80 & 
