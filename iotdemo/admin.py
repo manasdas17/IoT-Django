@@ -2,6 +2,7 @@ import datetime
 
 from django.utils import timezone
 from django.contrib import admin
+from django.shortcuts import render
 
 from .models import Cake, Customer, Order
 
@@ -39,9 +40,21 @@ class OrderAdmin(admin.ModelAdmin):
   list_display = ('customer', 'cake', 'date', 'number', 'earnings')
 
 
+# Requires - pip install django-adminplus 
+def reports(request):
+    latest_report = Order.objects.all()
+    context = {'latest_report': latest_report}
+    return render(request, 'iotdemo/reports.html', context)
+
+
+
 admin.site.register(Cake, CakeAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register_view('iotdemo/reports', view=reports)
+
+
+
 
 
 

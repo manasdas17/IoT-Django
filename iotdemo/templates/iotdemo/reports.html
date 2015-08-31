@@ -1,0 +1,63 @@
+{% extends "admin/base_site.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+  {{ block.super }}  
+{% endblock %}
+{% block extrastyle %}
+  {{ block.super }}
+{% endblock %}
+{% block bodyclass %}
+  {{ opts.app_label }}-{{ opts.object_name.lower }} change-form
+{% endblock %}
+
+{% block breadcrumbs %}{% if not is_popup %}
+  <div class="breadcrumbs">  
+    <a href="{% url 'admin:index' %}">Home</a> &rsaquo;
+    Reports
+  </div>
+{% endif %}{% endblock %}
+{% block content %}
+  <p><br/></p>
+  <h3>Chart for Sales Performance</h3>  
+  <p><br/></p>
+  <canvas id="myChart" width="640" height="400"></canvas>
+    
+  <script src="{% static 'iotdemo/chart.js' %}"></script>
+  <script>
+  {% if latest_report %}     
+    var data = {
+	labels: [{% for order in latest_report %} "{{ order.date }}", {% endfor %}], 
+	datasets: [
+	    {
+		label: "Sales numbers",
+		fillColor: "rgba(220,220,220,0.2)",
+		strokeColor: "rgba(220,220,220,1)",
+		pointColor: "rgba(220,220,220,1)",
+		pointStrokeColor: "#fff",
+		pointHighlightFill: "#fff",
+		pointHighlightStroke: "rgba(220,220,220,1)",
+		data: [{% for order in latest_report %} {{ order.number }}, {% endfor %}]
+	    },
+	    {
+		label: "Sales earnings",
+		fillColor: "rgba(151,187,205,0.2)",
+		strokeColor: "rgba(151,187,205,1)",
+		pointColor: "rgba(151,187,205,1)",
+		pointStrokeColor: "#fff",
+		pointHighlightFill: "#fff",
+		pointHighlightStroke: "rgba(151,187,205,1)",
+		data: [{% for order in latest_report %} {{ order.earnings }}, {% endfor %}]
+	    }
+	]
+    };
+    
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);    
+  {% endif %}  
+  </script>
+{% endblock %}
+
+
+
+
