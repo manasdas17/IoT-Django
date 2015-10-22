@@ -12,10 +12,11 @@ class CakeAdmin(admin.ModelAdmin):
     (None, {'fields': ['label']}),
     (None, {'fields': ['price']}),
     (None, {'fields': ['quantity']}),
+    (None, {'fields': ['deviceid']}),
   ]
   
   search_fields = ['label']
-  list_display = ('label', 'price', 'quantity')
+  list_display = ('label', 'price', 'quantity', 'deviceid')
 
 
 class CustomerAdmin(admin.ModelAdmin):
