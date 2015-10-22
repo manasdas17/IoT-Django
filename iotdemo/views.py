@@ -110,7 +110,7 @@ def checkout(request):
 
 def price(request, device_id):
 	cake = get_object_or_404(Cake, deviceid=device_id)
-	price = str(cake.price)
+	price = "$" + str(cake.price)
 	return HttpResponse("{" + price + "}")
 	
 	
