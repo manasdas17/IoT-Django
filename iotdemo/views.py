@@ -103,9 +103,29 @@ def checkout(request):
 	return HttpResponseRedirect(reverse('index')) 
 
 
-
 # Cake quantities are only verified to be > 0 upon final checkout. 
 # Signup/login form doesn't actually perform strict checking for duplicate usernames, only emails. 
 # In production code, it's probably better to use Django Forms for form validation, cleaning, etc. 
 
 
+def price(request, device_id):
+	cake = get_object_or_404(Cake, deviceid=device_id)
+	price = str(cake.price)
+	return HttpResponse("{" + price + "}")
+	
+	
+def update(request, add_sub, device_id): 
+	cake = get_object_or_404(Cake, deviceid=device_id)
+	
+	if add_sub == "add":
+		cake.quantity += 1
+		cake.save()
+		return HttpResponse("{OK}")
+		
+	if add_sub == "sub"
+		cake.quantity -= 1
+		cake.save()
+		return HttpResponse("{OK}")
+		
+	return HttpResponse("{Update failed.}")
+	
