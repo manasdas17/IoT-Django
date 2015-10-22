@@ -5,9 +5,9 @@
 #include <ESP8266WiFi.h>
 
 
-const char* ssid      = "GuileTheme"; 
-const char* password  = "Goes with everything"; 
-const char* host      = "demo.flickps.com"; 
+const char* ssid      = "**** **** ****"; 
+const char* password  = "**** **** ****"; 
+const char* host      = "www.domain.com"; 
 const int   httpPort  = 80; 
 
 
