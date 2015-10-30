@@ -122,7 +122,7 @@ def update(request, add_sub, device_id):
 		cake.save()
 		return HttpResponse("{OK}")
 		
-	if add_sub == "sub"
+	if add_sub == "sub":
 		cake.quantity -= 1
 		cake.save()
 		return HttpResponse("{OK}")
