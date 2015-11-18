@@ -7,3 +7,7 @@ This [Adafruit guide](https://learn.adafruit.com/adafruit-huzzah-esp8266-breakou
 Each device is tagged as Cake.deviceid and the hardware consists of 1 NodeMCU board & 2 pull-up buttons. <br/>
 A Serial-LCD (like [this model](https://www.sparkfun.com/products/9067) offered by Sparkfun) might also be helpful in displaying Cake.price. <br/> 
 The TX pin (next to GND) will mirror all data sent over the USB port using the Arduino Serial interface.  
+
+<hr> 
+
+Additionally, this demo also uses a Wifi device of the [Particle Photon](https://store.particle.io/) family to measure the ambient temperature (e.g. of the chilled display counter where the cakes are showcased). The Particle Cloud service is also used for communicating with the device, and the temperature data can be retrieved from this cloud service. 
