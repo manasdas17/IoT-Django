@@ -1,0 +1,72 @@
+{% load staticfiles %}
+{% include 'iotdemo/header.html' %}
+
+<div align="center" style="font-size:16pt;">Temperature</div><p><br/></p> 
+
+  <div align="center" id="tempchart">
+		<canvas id="chart" width="640" height="400"></canvas>
+  </div><p><br/>&nbsp;<br/>&nbsp;<br/></p>
+
+  <table class="table table-responsive table-bordered">
+    <tr><td width="20%">Refresh Rate: <td>2 seconds</td></tr>
+    <tr><td width="20%">Device ID: <td>2a0019000b47343432313031</td></tr>
+    <tr><td width="20%">Device Code: <td>24defa35489c8b4771bee86f34e7a5fd85b3c7d6</td></tr>
+  </table>
+
+
+<script src="{% static 'iotdemo/smoothie.js' %}"></script>
+
+<script>
+/* https://api.particle.io/v1/devices/2a0019000b47343432313031/temperature?access_token=24defa35489c8b4771bee86f34e7a5fd85b3c7d6 */
+
+var refreshrate = 2000; 
+var deviceid = "2a0019000b47343432313031"; 
+var devicecode = "24defa35489c8b4771bee86f34e7a5fd85b3c7d6";
+
+var url = "https://api.particle.io/v1/devices/" + deviceid + "/temperature?access_token=" + devicecode; 
+
+var currentemp = 0; 
+var mintemp = 0; 
+var maxtemp = 100; 
+var warning = 30; 
+var trigger = 40; 
+// Values: 0°C => 621 ; 100°C => 1862 
+var range = 1863-621; 
+
+$(document).ready(function()
+{
+	var chart = new SmoothieChart({minValue:mintemp, maxValue:maxtemp}); 
+	var data = new TimeSeries(); 
+
+	chart.addTimeSeries(data, 
+	{ 
+		strokeStyle: 'rgba(240, 110, 0, 1)', 
+		fillStyle: 'rgba(240, 110, 0, 0.2)', 
+		lineWidth: 4 
+	}); 
+	chart.streamTo(document.getElementById("chart"), refreshrate); 
+
+	setInterval(function()
+	{ 
+		$.getJSON(url, function(jsondata)
+		{ 
+			currentemp = ((jsondata['result']-621)*100/range).toFixed(2); 
+
+			data.append(new Date().getTime(), currentemp); 
+			$('#value').html(currentemp); 
+			$('#status').css("color","black"); 
+
+			if (currentemp >= warning && currentemp < trigger) 
+			{
+				$('#status').css("color","orange"); 
+			}
+			if (currentemp >= trigger)
+			{
+				$('#status').css("color","red"); 
+			}
+		});
+	}, refreshrate); 
+});
+</script>
+
+{% include 'iotdemo/footer.html' %} 
