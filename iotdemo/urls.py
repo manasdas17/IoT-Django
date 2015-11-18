@@ -12,6 +12,5 @@ urlpatterns = [
 	url(r'^checkout/', views.checkout, name='checkout'),
 	url(r'^price/(?P<device_id>\w+)/$', views.price, name='price'),
 	url(r'^update/(?P<add_sub>\w+)/(?P<device_id>\w+)/$', views.update, name='update'),
+	url(r'^cold/$', views.temperature, name='temperature'),
 ] 
-
-
