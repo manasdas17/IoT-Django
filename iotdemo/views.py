@@ -129,3 +129,12 @@ def update(request, add_sub, device_id):
 		
 	return HttpResponse("{Update failed.}")
 	
+
+def temperature(request): 
+  template = "iotdemo/temperature.html" 
+  return render(request, template, {}) 
+
+
+
+
+### END OF FILE. ### 
