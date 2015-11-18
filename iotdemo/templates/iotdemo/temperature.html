@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% include 'iotdemo/header.html' %}
 
-<div align="center" style="font-size:16pt;">Temperature</div><p><br/></p> 
+<div align="center" style="font-size:20pt;" id="status">Temperature</div><p><br/></p> 
 
   <div align="center" id="tempchart">
 		<canvas id="chart" width="640" height="400"></canvas>
@@ -53,7 +53,7 @@ $(document).ready(function()
 			currentemp = ((jsondata['result']-621)*100/range).toFixed(2); 
 
 			data.append(new Date().getTime(), currentemp); 
-			$('#value').html(currentemp); 
+			$('#status').html("Temperature: " + currentemp + " °C"); 
 			$('#status').css("color","black"); 
 
 			if (currentemp >= warning && currentemp < trigger) 
@@ -64,9 +64,9 @@ $(document).ready(function()
 			{
 				$('#status').css("color","red"); 
 			}
-		});
+		}); 
 	}, refreshrate); 
-});
+}); 
 </script>
 
 {% include 'iotdemo/footer.html' %} 
